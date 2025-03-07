@@ -25,8 +25,12 @@ spec:
         - name: DBPORT
           value: "3306"
         - name: DBUSER
-          value: "root" 
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: DBUSER
         - name: DBPASSWORD
-          value: "rootpassword"
-      imagePullSecrets:
-      - name: ecr-secret
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: DBPASSWORD
