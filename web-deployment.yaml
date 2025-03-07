@@ -24,5 +24,9 @@ spec:
           value: "mysql-service"
         - name: DBPORT
           value: "3306"
+        - name: DBUSER
+          value: "root" 
+        - name: DBPASSWORD
+          value: "rootpassword"
       imagePullSecrets:
       - name: ecr-secret
