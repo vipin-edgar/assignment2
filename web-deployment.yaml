@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+      - name: web-container
+        image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_app:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: DBHOST
+          value: "mysql-service"
+        - name: DBPORT
+          value: "3306"
+      imagePullSecrets:
+      - name: ecr-secret
