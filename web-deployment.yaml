@@ -1,36 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-deployment
+  name: webapp
 spec:
-  replicas: 3
+  replicas: 1  
   selector:
     matchLabels:
-      app: employees
+      app: webapp
   template:
     metadata:
       labels:
-        app: employees
+        app: webapp
     spec:
       imagePullSecrets:
-      - name: ecr-secret
+      - name: ecr-secret  
       containers:
-      - name: web-container
+      - name: webapp
         image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        command: ["python3", "app.py"]
         env:
         - name: DBHOST
-          value: "mysql-service"
+          value: "mysql-service"  
         - name: DBPORT
           value: "3306"
         - name: DBUSER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: DBUSER
-        - name: DBPASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: DBPASSWORD
+          value: "root"
+        - name: DATABASE
+          value: "employees"
+        - name: DBPWD
+          value: "pw" 

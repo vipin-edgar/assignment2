@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: mysql
 spec:
   replicas: 1
   selector:
@@ -13,22 +13,12 @@ spec:
         app: mysql
     spec:
       imagePullSecrets:
-      - name: ecr-secret
+      - name: ecr-secret  
       containers:
-      - name: mysql-container
+      - name: mysql
         image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_db:latest
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: DBPASSWORD
         ports:
         - containerPort: 3306
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: mysql-pvc
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "pw"  
