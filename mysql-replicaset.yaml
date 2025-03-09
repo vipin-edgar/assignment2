@@ -2,19 +2,20 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: mysql-replicaset
-  namespace: mysql-namespace  
   labels:
-    app: mysql  
+    app: mysql-replicaset
 spec:
-  replicas: 3  
+  replicas: 3
   selector:
     matchLabels:
-      app: mysql  
+      app: mysql-replicaset
   template:
     metadata:
       labels:
-        app: mysql  
+        app: mysql-replicaset
     spec:
+      imagePullSecrets:
+      - name: ecr-secret  
       containers:
       - name: mysql
         image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_db:latest
