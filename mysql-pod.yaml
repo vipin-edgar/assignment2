@@ -5,11 +5,13 @@ metadata:
   labels:
     app: mysql
 spec:
+  imagePullSecrets:
+  - name: ecr-secret  
   containers:
-  - name: mysql-container
+  - name: mysql
     image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_db:latest
-    env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "rootpassword"
     ports:
     - containerPort: 3306
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "pw"

@@ -1,28 +1,35 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: web-replicaset
+  name: webapp-replicaset
   labels:
-    app: employees
+    app: webapp-replicaset
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: employees
+      app: webapp-replicaset
   template:
     metadata:
       labels:
-        app: employees
+        app: webapp-replicaset
     spec:
+      imagePullSecrets:
+      - name: ecr-secret  
       containers:
-      - name: web-container
+      - name: webapp
         image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        command: ["python3", "app.py"]
         env:
         - name: DBHOST
           value: "mysql-service"
         - name: DBPORT
           value: "3306"
-      imagePullSecrets:
-      - name: ecr-secret
+        - name: DBUSER
+          value: "root"
+        - name: DATABASE
+          value: "employees"
+        - name: DBPWD
+          value: "pw"
