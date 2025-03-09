@@ -2,15 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp
+  labels:
+    app: webapp-deployment
 spec:
-  replicas: 1  
+  replicas: 2
   selector:
     matchLabels:
-      app: webapp
+      app: webapp-deployment
   template:
     metadata:
       labels:
-        app: webapp
+        app: webapp-deployment
     spec:
       imagePullSecrets:
       - name: ecr-secret  
@@ -22,7 +24,7 @@ spec:
         command: ["python3", "app.py"]
         env:
         - name: DBHOST
-          value: "mysql-service"  
+          value: "mysql-service"
         - name: DBPORT
           value: "3306"
         - name: DBUSER
@@ -30,4 +32,4 @@ spec:
         - name: DATABASE
           value: "employees"
         - name: DBPWD
-          value: "pw" 
+          value: "pw"
