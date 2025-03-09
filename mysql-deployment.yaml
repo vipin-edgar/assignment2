@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-deployment
+  namespace: mysql-namespace
   labels:
-    app: mysql-deployment
+    app: mysql  
 spec:
-  replicas: 2
+  replicas: 2  
   selector:
     matchLabels:
-      app: mysql-deployment
+      app: mysql  
   template:
     metadata:
       labels:
-        app: mysql-deployment
+        app: mysql  
     spec:
       imagePullSecrets:  
         - name: ecr-secret

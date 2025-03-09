@@ -1,18 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: webapp-deployment
+  namespace: webapp-namespace
   labels:
-    app: webapp-deployment
+    app: employees  
 spec:
-  replicas: 2
+  replicas: 2  
   selector:
     matchLabels:
-      app: webapp-deployment
+      app: employees  
   template:
     metadata:
       labels:
-        app: webapp-deployment
+        app: employees  
     spec:
       imagePullSecrets:  
         - name: ecr-secret
@@ -24,7 +25,7 @@ spec:
         command: ["python3", "app.py"]
         env:
         - name: DBHOST
-          value: "mysql-service"
+          value: "mysql-service.mysql-namespace"  
         - name: DBPORT
           value: "3306"
         - name: DBUSER
