@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: webapp-replicaset
+  namespace: webapp-namespace  
   labels:
-    app: webapp-replicaset
+    app: employees  
 spec:
   replicas: 3
   selector:
@@ -14,8 +15,8 @@ spec:
       labels:
         app: webapp-replicaset
     spec:
-      imagePullSecrets:
-      - name: ecr-secret  
+      imagePullSecrets:  
+        - name: ecr-secret
       containers:
       - name: webapp
         image: 011926502057.dkr.ecr.us-east-1.amazonaws.com/vipinecr/my_app:latest
