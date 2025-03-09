@@ -6,9 +6,9 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: webapp-deployment  
+    app: employees 
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-      nodePort: 30000  
+      nodePort: 30000
